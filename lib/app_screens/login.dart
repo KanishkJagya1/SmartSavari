@@ -1,101 +1,148 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/app_screens/home.dart';
+import 'package:flutter_first_app/app_screens/register.dart'; // Import the RegisterPage
+import 'package:flutter_first_app/app_screens/req_permission_access.dart';
 
-class MyLogin extends StatefulWidget {
-  const MyLogin({Key? key}) : super(key: key);
-
-  @override
-  _MyLoginState createState() => _MyLoginState();
-}
-
-class _MyLoginState extends State<MyLogin> {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            Container(
-              height: 300.0,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/login.png'),
-                  fit: BoxFit.cover,
-                ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/login.png'),
+                fit: BoxFit.cover,
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(left: 50, top: 340),
-              child: Text(
-                'Welcome to\nSMARTSAVARI',
-                style: TextStyle(color: Colors.black, fontSize: 32),
+          ),
+          Center(
+            child: _buildLoginForm(context), // Add the login form widgets here
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoginForm(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Center the widgets vertically
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 100), // Adjust the value as needed
+          Text(
+            'Welcome to',
+            style: TextStyle(color: Colors.white, fontSize: 32),
+          ),
+          Text(
+            'SMARTSAVARI',
+            style: TextStyle(color: Colors.white, fontSize: 32),
+          ),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              // Handle Gmail login here
+            },
+            child: Text(
+              'Login with Gmail',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.5,
-                  right: 35,
-                  left: 35,
-                ),
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'E-mail',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              // Handle Phone login here
+            },
+            child: Text(
+              'Login with Phone',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () async {
+              // Show location permission pop-up
+              bool allowLocation = await showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text("Allow Location Access?"),
+                  content: Text("Do you want to allow access to your location?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: Text("Yes"),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ), // Add a comma here
-                    Row( // Corrected from 'row' to 'Row'
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Color(0xff4c505b),
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Color(0xff4c505b),
-                          child: IconButton(
-                            onPressed: () {},
-                            color: Colors.white,
-                            icon: Icon(Icons.arrow_forward),
-                          ),
-                        ),
-                      ],
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text("No"),
                     ),
                   ],
                 ),
+              );
+
+              if (allowLocation) {
+                // Navigate to HomeScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              } else {
+                // Navigate to LocationPermissionScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocationPermissionScreen()),
+                );
+              }
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min, // Center the button
+              children: [
+                Text(
+                  'Sign In',
+                  style: TextStyle(
+                    color: Color(0xff4c505b),
+                    fontSize: 27,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Icon(Icons.arrow_forward),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+              onPrimary: Colors.black,
+            ),
+          ),
+          SizedBox(height: 10), // Add a small space between "Sign In" and "Sign Up" buttons
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterPage()),
+              );
+            },
+            child: Text(
+              'Sign Up',
+              style: TextStyle(
+                fontSize: 27,
               ),
             ),
-          ],
-        ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.transparent, // Transparent background
+              onPrimary: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
