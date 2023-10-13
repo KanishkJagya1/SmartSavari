@@ -1,19 +1,28 @@
-# flutter_first_app
+# SmartSavari - Authentication and Verification
 
-A new Flutter project.
+Welcome to the SmartSavari Flutter app! This README provides an overview of how user authentication and verification were implemented in the app. You can also find the code for this project on GitHub.
+
+## Overview
+
+SmartSavari is a Flutter app that allows users to log in securely and access the home page. To ensure user data security and authentication, we have implemented the following features:
+
+1. **User Registration:** New users can create an account by providing their email and password. The registration process includes input validation and secure password storage.
+
+2. **User Login:** Registered users can log in using their email and password. The login process is protected with authentication checks.
+
+3. **Email Verification:** To enhance security and verify user identity, an email verification step is included. Users receive a verification email with a unique link upon registration.
+
+4. **Password Reset:** In case users forget their password, there is a password reset feature that allows them to reset their password securely.
+
+5. **User Authentication:** Access to the home page is restricted to authenticated users only. Unauthorized users are redirected to the login screen.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To explore the SmartSavari app and its authentication and verification features, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. **Clone the Repository:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+   ```shell
+   git clone https://github.com/your-username/smartsavari-app.git
+   cd smartsavari-app
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
-This app is for smartsavari app
